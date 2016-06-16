@@ -2,7 +2,9 @@ module Main where
 
 import Prelude
 import Data.Array
+import Data.Tuple
 import Data.Foldable
+import Control.MonadPlus (guard)
 import Control.Monad.Eff.Console (infoShow)
 
 main = infoShow (fib 10)
@@ -17,5 +19,9 @@ pairs :: Int -> Array (Array Int)
 pairs n = concatMap (\i -> map (\j -> [i, j]) (i .. n)) (1 .. n)
 
 -- Tests number pairs for factors 
-factors :: Int -> Array (Array Int)
-factors n = filter (\pair -> product pair == n)(pairs n)
+factors :: Int -> Array (Tuple Int Int)
+factors n = do
+    i <- 1 .. n
+    j <- i .. n
+    guard $ i * j == n
+    pure $ Tuple i j
