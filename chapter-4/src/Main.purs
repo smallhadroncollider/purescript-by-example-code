@@ -46,3 +46,12 @@ sum :: Array Int -> Int
 -- equivalent to n = foldl (+) 0 n
 -- equivalent to n = foldl (\a b -> a + b) 0 n
 sum = foldl (+) 0
+
+-- foldl === reduce
+-- joins array of ints
+joinInts :: Array Int -> String
+joinInts = foldl (\acc n -> acc <> show n) ""
+
+-- reverse joins array of ints
+revJoinInts :: Array Int -> String
+revJoinInts = foldr (\n acc -> acc <> show n) ""
